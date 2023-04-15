@@ -130,9 +130,6 @@ static int lastlevel (lua_State *L) {
 
 LUALIB_API void luaL_traceback (lua_State *L, lua_State *L1,
                                 const char *msg, int level) {
-#ifdef PROFAN_PATCH
-  return;
-#endif
   luaL_Buffer b;
   lua_Debug ar;
   int last = lastlevel(L1);

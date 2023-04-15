@@ -46,10 +46,6 @@ struct timezone {
 #undef lseek
 #endif
 
-#ifdef memcpy
-#undef memcpy
-#endif
-
 #ifdef fputs
 #undef fputs
 #endif

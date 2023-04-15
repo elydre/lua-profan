@@ -12,7 +12,7 @@
 
 #include <limits.h>
 #include <stddef.h>
-#include <string.h>
+#include <bordel.h>
 
 #include "lua.h"
 
