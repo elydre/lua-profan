@@ -42,18 +42,6 @@ struct timezone {
 #undef exit
 #endif
 
-#ifdef open
-#undef open
-#endif
-
-#ifdef close
-#undef close
-#endif
-
-#ifdef read
-#undef read
-#endif
-
 #ifdef lseek
 #undef lseek
 #endif
@@ -70,43 +58,20 @@ struct timezone {
 #undef strncmp
 #endif
 
-#ifdef unlink
-#undef unlink
-#endif
-
-#ifdef fputc
-#undef fputc
-#endif
-
 // entry.c
 void exit(int status);
 
 // bordel.c
-void init_bordel();
 
 void serial_debug(char *fmt, ...);
 
 int strncmp(const char *s1, const char *s2, size_t n);
 long double strtold(const char *theString, char **end);
 
-int open(const char *pathname, ...);
-int close(int fd);
-ssize_t read(int fd, void *buf, size_t count);
-off_t lseek(int fd, off_t offset, int whence);
-
-int unlink(const char *pathname);
-
 void *memcpy(void *dest, const void *src, size_t n);
 
 int fseek(FILE *stream, long offset, int whence);
-FILE *fdopen(int fd, const char *mode);
-
 int fputs(const char *s, FILE *stream);
-int fputc(int c, FILE *stream);
-
-void SLogMsg(const char *msg, ...);
-
-int GetTickCount(void);
 
 int isalnum(int c);
 int isdigit(int c);

@@ -14,6 +14,7 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <string.h>
+#include <bordel.h>
 #include <time.h>
 
 #include "lua.h"

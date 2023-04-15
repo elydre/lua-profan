@@ -22,9 +22,6 @@ int entry(int argc, char **argv) {
         serial_debug("argv[%d] = %s\n", i, new_argv[i]);
     }
 
-    // init bordel
-    init_bordel();
-
     // call main and setup exit
     int val;
 
@@ -34,6 +31,8 @@ int entry(int argc, char **argv) {
     }
 
     serial_debug("exit with %d\n", val - 1);
+
+    free(new_argv);
 
     // free memory
     int freed = c_mem_free_all(c_process_get_pid());
