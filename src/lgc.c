@@ -1172,7 +1172,7 @@ static GCObject **correctgraylist (GCObject **p) {
   while ((curr = *p) != NULL) {
     GCObject **next = getgclist(curr);
     if (iswhite(curr))
-      goto remove;  /* remove all white objects */
+      goto remove_sec;  /* remove all white objects */
     else if (getage(curr) == G_TOUCHED1) {  /* touched in this cycle? */
       lua_assert(isgray(curr));
       nw2black(curr);  /* make it black, for next barrier */
@@ -1188,9 +1188,9 @@ static GCObject **correctgraylist (GCObject **p) {
       if (getage(curr) == G_TOUCHED2)  /* advance from TOUCHED2... */
         changeage(curr, G_TOUCHED2, G_OLD);  /* ... to OLD */
       nw2black(curr);  /* make object black (to be removed) */
-      goto remove;
+      goto remove_sec;
     }
-    remove: *p = *next; continue;
+    remove_sec: *p = *next; continue;
     remain: p = next; continue;
   }
   return p;
