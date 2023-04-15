@@ -406,3 +406,27 @@ void SLogMsg(const char * msg, ...) {
 int GetTickCount() {
     return c_timer_get_ms();
 }
+
+// localeconv
+struct lconv *localeconv(void) {
+    c_kprint("localeconv is not implemented yet...\n");
+    return NULL;
+}
+
+// strcoll
+int strcoll(const char *s1, const char *s2) {
+    c_kprint("strcoll is not implemented yet...\n");
+    return 0;
+}
+
+// setlocale
+char *setlocale(int category, const char *locale) {
+    c_kprint("setlocale is not implemented yet...\n");
+    return NULL;
+}
+
+// signal
+void (*signal(int sig, void (*func)(int)))(int) {
+    c_kprint("signal is not implemented yet...\n");
+    return NULL;
+}

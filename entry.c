@@ -5,7 +5,7 @@
 
 jmp_buf env;
 
-extern int NsMain(int argc, char **argv);
+extern int main(int argc, char **argv);
 
 int entry(int argc, char **argv) {
     // patch argv
@@ -25,12 +25,12 @@ int entry(int argc, char **argv) {
     // init bordel
     init_bordel();
 
-    // call NsMain and setup exit
+    // call main and setup exit
     int val;
 
     val = setjmp(env);
     if (!val) {
-        val = NsMain(new_argc, new_argv) + 1;
+        val = main(new_argc, new_argv) + 1;
     }
 
     serial_debug("exit with %d\n", val - 1);

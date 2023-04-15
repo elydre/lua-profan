@@ -127,4 +127,6 @@ int strcoll(const char *s1, const char *s2);
 // setlocale
 char *setlocale(int category, const char *locale);
 
+void (*signal(int sig, void (*func)(int)))(int);
+
 #endif

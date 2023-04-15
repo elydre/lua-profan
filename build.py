@@ -5,7 +5,7 @@ LD      = "ld"
 
 OUTPUT  = "lua-core"
 
-CFLAGS  = "-g -ffreestanding -fno-exceptions -m32 -I ./profan_zlib -I ./local_lib -Wno-incompatible-pointer-types"
+CFLAGS  = "-g -ffreestanding -fno-exceptions -m32 -I ./profan_zlib -I ./local_lib -Wno-incompatible-pointer-types -Wno-overflow"
 LDFLAGS = "-T link.ld -z max-page-size=0x1000"
 
 OBJDIR  = "build"
