@@ -11,6 +11,7 @@
 #include <limits.h>
 #include <stddef.h>
 
+#define PROFAN_DIR
 
 /*
 ** ===================================================================
@@ -197,7 +198,7 @@
 */
 
 #define LUA_VDIR	LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
-#if defined(_WIN32)	/* { */
+#if defined(_WIN32)	/* { * Windows */
 /*
 ** In Windows, any exclamation mark ('!') in the path is replaced by the
 ** path of the directory of the executable file of the current process.
@@ -221,11 +222,20 @@
 		LUA_CDIR"loadall.dll;" ".\\?.dll"
 #endif
 
-#else			/* }{ */
+#else			/* }{ * linux */
+#ifndef PROFAN_DIR
 
 #define LUA_ROOT	"/usr/local/"
 #define LUA_LDIR	LUA_ROOT "share/lua/" LUA_VDIR "/"
 #define LUA_CDIR	LUA_ROOT "lib/lua/" LUA_VDIR "/"
+
+#else		/* }{ * profanOS */
+
+#define LUA_ROOT	"/zada/"
+#define LUA_LDIR	LUA_ROOT "lua/"
+#define LUA_CDIR	LUA_ROOT "lua/"
+
+#endif			/* } * profanOS + linux */
 
 #if !defined(LUA_PATH_DEFAULT)
 #define LUA_PATH_DEFAULT  \
