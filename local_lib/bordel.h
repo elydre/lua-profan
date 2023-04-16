@@ -64,7 +64,7 @@ void serial_debug(char *fmt, ...);
 int strncmp(const char *s1, const char *s2, size_t n);
 long double strtold(const char *theString, char **end);
 
-void *memcpy(void *dest, const void *src, size_t n);
+// void *memcpy(void *dest, const void *src, size_t n);
 
 int fseek(FILE *stream, long offset, int whence);
 int fputs(const char *s, FILE *stream);

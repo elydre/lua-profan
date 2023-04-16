@@ -14,6 +14,7 @@
 #define memccpy(s1, s2, c, n) ((void *(*)(void *, const void *, int, size_t)) get_func_addr(STRING_ID, 9))(s1, s2, c, n)
 #define memchr(s, c, n) ((wchar_t *(*)(const wchar_t *, wchar_t, size_t)) get_func_addr(STRING_ID, 10))(s, c, n)
 #define memcmp(s1, s2, n) ((int (*)(const wchar_t *, const wchar_t *, size_t)) get_func_addr(STRING_ID, 11))(s1, s2, n)
+#define memcpy(s1, s2, n) ((void *(*)(void *, const void *, size_t)) get_func_addr(STRING_ID, 12))(s1, s2, n)
 #define memmem(haystack, hlen, needle, nlen) ((void *(*)(const void *, size_t, const void *, size_t)) get_func_addr(STRING_ID, 13))(haystack, hlen, needle, nlen)
 #define memmove(s1, s2, n) ((void *(*)(void *, const void *, size_t)) get_func_addr(STRING_ID, 14))(s1, s2, n)
 #define mempcpy(s1, s2, n) ((void *(*)(void *, const void *, size_t)) get_func_addr(STRING_ID, 15))(s1, s2, n)

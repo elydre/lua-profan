@@ -125,13 +125,6 @@ void serial_debug(char *fmt, ...) {
     free(char_buffer);
 }
 
-void *memcpy(void *dest, const void *src, size_t n) {
-    for (int i = 0; i < n; i++) {
-        ((uint8_t *) dest)[i] = ((uint8_t *) src)[i];
-    }
-    return dest;
-}
-
 int fputs(const char *s, FILE *stream) {
     if (stream == stdout) {
         c_kprint((char *) s);
