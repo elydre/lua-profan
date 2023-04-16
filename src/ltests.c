@@ -1179,6 +1179,7 @@ static int loadlib (lua_State *L) {
     {"math", luaopen_math},
     {"string", luaopen_string},
     {"table", luaopen_table},
+    {"profan", luaopen_profan},
     {"T", luaB_opentests},
     {NULL, NULL}
   };
