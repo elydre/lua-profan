@@ -7,12 +7,26 @@ OUTPUT_ARCH(i386)
 /* Entry point for application */
 ENTRY (entry)
 
-SECTIONS 
-{
-    . = 64M; /*Load at 64M, until we get paging working*/
+SECTIONS {
+    . = 0xC0000000;
 
-    .text : { *(.text) }
-    .rodata : { *(.rodata) }
-    .data : { *(.data) }
-    .bss : { *(.bss) }
+    .text : {
+        *(.text)
+        *(.text.*)
+    }
+
+    .rodata : {
+        *(.rodata)
+        *(.rodata.*)
+    }
+
+    .data : {
+        *(.data)
+        *(.data.*)
+    }
+
+    .bss : {
+        *(.bss)
+        *(.bss.*)
+    }
 }

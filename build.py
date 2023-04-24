@@ -3,7 +3,7 @@ import os
 CC      = "gcc"
 LD      = "ld"
 
-OUTPUT  = "lua-core"
+OUTPUT  = "lua"
 
 CFLAGS  = "-g -ffreestanding -fno-exceptions -m32 -I ./profan_zlib -I ./local_lib -Wno-incompatible-pointer-types -Wno-overflow"
 LDFLAGS = "-T link.ld -z max-page-size=0x1000"
@@ -38,7 +38,6 @@ def main():
     entry = compile_file("entry.c", ".")
     link_files(entry, objs)
 
-    link_files(compile_file("lua.c", "."), "", "lua")
     execute_command("rm *.pe")
 
 if __name__ == "__main__":
