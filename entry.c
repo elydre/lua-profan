@@ -1,6 +1,7 @@
 #include <syscall.h>
 #include <stdlib.h>
 #include <setjmp.h>
+#include <string.h>
 #include <bordel.h>
 
 jmp_buf env;
@@ -14,13 +15,19 @@ int entry(int argc, char **argv) {
 
 int entry_call(int argc, char **argv) {
     // patch argv
-    char cmd[] = "lua";
 
     int new_argc = argc - 1;
-    char **new_argv = malloc(sizeof(char *) * new_argc);
-    for (int i = 0; i < new_argc; i++) {
+    if (new_argc < 1) new_argc = 1;
+    char **new_argv = malloc(sizeof(char *) * new_argc + 1);
+    serial_debug("new_argv = %x, new_argc = %d\n", new_argv, new_argc);
+    for (int i = 0; i <= new_argc; i++) {
         if (i == 0) {
-            new_argv[i] = cmd;
+            new_argv[i] = malloc(4);
+            strcpy(new_argv[i], "lua");
+        } else if (i == new_argc) {
+            serial_debug("argv[%d] = NULL\n", i);
+            new_argv[i] = NULL;
+            break;
         } else {
             new_argv[i] = argv[i + 1];
         }
