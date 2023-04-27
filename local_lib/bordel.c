@@ -16,15 +16,6 @@ int unlink(const char *pathname) {
     return 0;
 }
 
-int strncmp(const char *s1, const char *s2, size_t n) {
-    for (int i = 0; i < n; i++) {
-        if (s1[i] != s2[i]) {
-            return s1[i] - s2[i];
-        }
-    }
-    return 0;
-}
-
 int str_len(char s[]) {
     int i = 0;
     while (s[i] != '\0') i++;
@@ -209,8 +200,7 @@ struct lconv *localeconv(void) {
 
 // strcoll
 int strcoll(const char *s1, const char *s2) {
-    c_kprint("strcoll is not implemented yet...\n");
-    return 0;
+    return strcmp(s1, s2);
 }
 
 // setlocale
