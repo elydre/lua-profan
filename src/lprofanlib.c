@@ -110,12 +110,51 @@ static int pf_memset (lua_State *L) {
   return 1;
 }
 
+static int pf_pin (lua_State *L) {
+  // lua: profan.pin(port, size)
+  // size is 1, 2 or 4
+  int port = luaL_checkinteger(L, 1);
+  int size = luaL_checkinteger(L, 2);
+  int result;
+  if (size == 1) {
+    asm volatile("in %%dx, %%al" : "=a" (result) : "d" (port));
+  } else if (size == 2) {
+    asm volatile("in %%dx, %%ax" : "=a" (result) : "d" (port));
+  } else if (size == 4) {
+    asm volatile("in %%dx, %%eax" : "=a" (result) : "d" (port));
+  } else {
+    luaL_error(L, "invalid size");
+  }
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int pf_pout (lua_State *L) {
+  // lua: profan.pout(port, size, value)
+  // size is 1, 2 or 4
+  int port = luaL_checkinteger(L, 1);
+  int size = luaL_checkinteger(L, 2);
+  int value = luaL_checkinteger(L, 3);
+  if (size == 1) {
+    asm volatile("out %%al, %%dx" : : "a" (value), "d" (port));
+  } else if (size == 2) {
+    asm volatile("out %%ax, %%dx" : : "a" (value), "d" (port));
+  } else if (size == 4) {
+    asm volatile("out %%eax, %%dx" : : "a" (value), "d" (port));
+  } else {
+    luaL_error(L, "invalid size");
+  }
+  return 1;
+}
+
 static const luaL_Reg profanlib[] = {
   {"setpixel",  pf_setpixel},
   {"ticks",     pf_ticks},
   {"call_c",    pf_call_c},
   {"memval",    pf_memval},
   {"memset",    pf_memset},
+  {"pin",       pf_pin},
+  {"pout",      pf_pout},
   {NULL, NULL}
 };
 
