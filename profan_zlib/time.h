@@ -5,14 +5,11 @@
 
 #define get_func_addr ((int (*)(int, int)) *(int *) 0x1ffffb)
 
-/*
-int main();
-*/
-
 // Null pointer constant.
 #ifndef NULL
 #define NULL 0
 #endif
+
 // Number of clock ticks per second returned by the times() function (LEGACY).
 #define CLK_TCK 100
 // A number used to convert the value returned by the clock() function into seconds.
