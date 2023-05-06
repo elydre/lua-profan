@@ -7,6 +7,7 @@
 jmp_buf env;
 
 extern int main(int argc, char **argv);
+int entry_call(int argc, char **argv);
 
 int entry(int argc, char **argv) {
     // we need to call a other entry function
