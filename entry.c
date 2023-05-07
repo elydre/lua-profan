@@ -19,7 +19,7 @@ int entry_call(int argc, char **argv) {
 
     int new_argc = argc - 1;
     if (new_argc < 1) new_argc = 1;
-    char **new_argv = malloc(sizeof(char *) * new_argc + 1);
+    char **new_argv = malloc(sizeof(char *) * (new_argc + 1));
     serial_debug("new_argc = %d\n", new_argc);
     for (int i = 0; i <= new_argc; i++) {
         if (i == 0) {
