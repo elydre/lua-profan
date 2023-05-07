@@ -38,7 +38,7 @@ double atof(const char *s);
 #define __drand48_iterate(xsubi, buffer) ((void (*)(unsigned short int [3], struct drand48_data *)) get_func_addr(STDLIB_ID, 20))(xsubi, buffer)
 #define erand48(xsubi) ((double (*)(unsigned short int [3])) get_func_addr(STDLIB_ID, 21))(xsubi)
 #define erand48_r(xsubi, buffer, result) ((int (*)(unsigned short int [3], struct drand48_data *, double *)) get_func_addr(STDLIB_ID, 22))(xsubi, buffer, result)
-// #define exit(status) ((void (*)(int)) get_func_addr(STDLIB_ID, 23))(status)
+#define exit(status) ((void (*)(int)) get_func_addr(STDLIB_ID, 23))(status)
 #define gcvt(number, ndigit, buf) ((char *(*)(double, int, char *)) get_func_addr(STDLIB_ID, 24))(number, ndigit, buf)
 #define getenv(var) ((char *(*)(const char *)) get_func_addr(STDLIB_ID, 25))(var)
 #define getpt() ((int (*)(void)) get_func_addr(STDLIB_ID, 26))()

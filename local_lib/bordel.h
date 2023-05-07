@@ -38,10 +38,6 @@ struct timezone {
 // define size_t type
 #define ssize_t long
 
-#ifdef exit
-#undef exit
-#endif
-
 #ifdef lseek
 #undef lseek
 #endif
@@ -50,16 +46,11 @@ struct timezone {
 #undef fputs
 #endif
 
-// entry.c
-void exit(int status);
-
 // bordel.c
 
 void serial_debug(char *fmt, ...);
 
 long double strtold(const char *theString, char **end);
-
-// void *memcpy(void *dest, const void *src, size_t n);
 
 int fseek(FILE *stream, long offset, int whence);
 int fputs(const char *s, FILE *stream);
