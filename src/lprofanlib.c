@@ -81,11 +81,11 @@ static int pf_memval (lua_State *L) {
   int address = luaL_checkinteger(L, 1);
   int size = luaL_checkinteger(L, 2);
   if (size == 1) {
-    lua_pushinteger(L, *((char *)address));
+    lua_pushinteger(L, *((uint8_t *) address));
   } else if (size == 2) {
-    lua_pushinteger(L, *((short *)address));
+    lua_pushinteger(L, *((uint16_t *) address));
   } else if (size == 4) {
-    lua_pushinteger(L, *((int *)address));
+    lua_pushinteger(L, *((uint32_t *) address));
   } else {
     luaL_error(L, "invalid size");
   }
