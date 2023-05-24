@@ -118,7 +118,7 @@ void serial_debug(char *fmt, ...) {
 
 int fputs(const char *s, FILE *stream) {
     if (stream == stdout) {
-        c_kprint((char *) s);
+        puts(s);
         return 0;
     }
     
@@ -182,19 +182,19 @@ int isupper(int c) {
 }
 
 long double strtold(const char *theString, char **end) {
-    c_kprint("strtold is not implemented yet...\n");
+    puts("strtold is not implemented yet...\n");
     return 0;
 }
 
 // fseek
 int fseek(FILE *stream, long offset, int whence) {
-    c_kprint("fseek is not implemented yet...\n");
+    puts("fseek is not implemented yet...\n");
     return 0;
 }
 
 // localeconv
 struct lconv *localeconv(void) {
-    c_kprint("localeconv is not implemented yet...\n");
+    puts("localeconv is not implemented yet...\n");
     return NULL;
 }
 
@@ -205,7 +205,7 @@ int strcoll(const char *s1, const char *s2) {
 
 // setlocale
 char *setlocale(int category, const char *locale) {
-    c_kprint("setlocale is not implemented yet...\n");
+    puts("setlocale is not implemented yet...\n");
     return NULL;
 }
 
