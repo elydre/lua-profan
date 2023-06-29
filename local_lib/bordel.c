@@ -121,7 +121,7 @@ int fputs(const char *s, FILE *stream) {
         puts(s);
         return 0;
     }
-    
+
     fwrite(s, 1, str_len((char *) s), stream);
     return 0;
 }
