@@ -12,7 +12,6 @@
 
 int unlink(const char *pathname) {
     serial_debug("unlink: %s\n", (char *) pathname);
-    // file deletion is not implemented in FSv2
     return 0;
 }
 
