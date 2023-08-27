@@ -55,6 +55,21 @@ typedef struct {
     uint32_t vdisk_count;       // virtual disk count
 } filesys_t;
 
+typedef struct {
+    char *path;     // path to file
+    sid_t sid;      // sector id (can be null)
+    
+    int argc;       // argument count
+    char **argv;    // argument list
+
+    uint32_t vbase; // virtual base address
+    uint32_t vcunt; // virtual count
+
+    uint32_t stack; // stack size
+
+    uint8_t sleep; // sleep after start
+} runtime_args_t;
+
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //
 // Math (from stdlib)
@@ -141,6 +156,7 @@ typedef struct FILE {
     char *mode;
 
     int   file_pos;
+    int   type;
     sid_t sid;
 } FILE;
 
