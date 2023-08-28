@@ -185,12 +185,6 @@ long double strtold(const char *theString, char **end) {
     return 0;
 }
 
-// fseek
-int fseek(FILE *stream, long offset, int whence) {
-    puts("fseek is not implemented yet...\n");
-    return 0;
-}
-
 // localeconv
 struct lconv *localeconv(void) {
     puts("localeconv is not implemented yet...\n");

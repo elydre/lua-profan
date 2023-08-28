@@ -38,10 +38,6 @@ struct timezone {
 // define size_t type
 #define ssize_t long
 
-#ifdef lseek
-#undef lseek
-#endif
-
 #ifdef fputs
 #undef fputs
 #endif
@@ -52,7 +48,6 @@ void serial_debug(char *fmt, ...);
 
 long double strtold(const char *theString, char **end);
 
-int fseek(FILE *stream, long offset, int whence);
 int fputs(const char *s, FILE *stream);
 
 int isalnum(int c);
