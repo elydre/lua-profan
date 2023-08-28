@@ -12,7 +12,6 @@
 
 int unlink(const char *pathname) {
     serial_debug("unlink: %s\n", (char *) pathname);
-    // file deletion is not implemented in FSv2
     return 0;
 }
 
@@ -183,12 +182,6 @@ int isupper(int c) {
 
 long double strtold(const char *theString, char **end) {
     puts("strtold is not implemented yet...\n");
-    return 0;
-}
-
-// fseek
-int fseek(FILE *stream, long offset, int whence) {
-    puts("fseek is not implemented yet...\n");
     return 0;
 }
 
