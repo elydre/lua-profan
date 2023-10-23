@@ -38,17 +38,11 @@ struct timezone {
 // define size_t type
 #define ssize_t long
 
-#ifdef fputs
-#undef fputs
-#endif
-
 // bordel.c
 
 void serial_debug(char *fmt, ...);
 
 long double strtold(const char *theString, char **end);
-
-int fputs(const char *s, FILE *stream);
 
 int isalnum(int c);
 int isdigit(int c);

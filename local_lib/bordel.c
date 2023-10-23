@@ -115,19 +115,8 @@ void serial_debug(char *fmt, ...) {
     free(char_buffer);
 }
 
-int fputs(const char *s, FILE *stream) {
-    if (stream == stdout) {
-        puts(s);
-        return 0;
-    }
-
-    fwrite(s, 1, str_len((char *) s), stream);
-    return 0;
-}
-
 int isalnum(int c) {
     return isalpha(c) || isdigit(c);
-
 }
 
 int isdigit(int c) {
