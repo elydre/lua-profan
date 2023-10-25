@@ -421,7 +421,12 @@ static int handle_luainit (lua_State *L) {
 
 #define lua_stdin_is_tty()	_isatty(_fileno(stdin))
 
-#else				/* }{ */
+#elif defined(PROFAN_DIR)		/* }{ */
+
+#include <unistd.h>
+#define lua_stdin_is_tty()	isatty(0)
+
+#else							/* }{ */
 
 /* ISO C definition */
 #define lua_stdin_is_tty()	1  /* assume stdin is a tty */
