@@ -20,7 +20,7 @@
 #define EOF -1
 #define FOPEN_MAX 1024
 #define FILENAME_MAX 20
-#define BUFSIZ 1024 // TODO : CHOSE A CORRECT VALUE
+#define BUFSIZ 1024
 
 #ifndef SEEK_CUR
 #define SEEK_CUR 1
