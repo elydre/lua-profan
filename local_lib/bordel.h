@@ -3,45 +3,10 @@
 
 #include <type.h>
 
-#define EXIT_FAILURE 1
-#define EXIT_SUCCESS 0
-
 // errno variable
 static int errno;
 
-#define O_RDONLY 0
-#define O_WRONLY 1
-#define O_CREAT 2
-#define O_TRUNC 4
-#define O_BINARY 8
-
-#define SEEK_SET 0
-#define SEEK_CUR 1
-#define SEEK_END 2
-
-// define jmp_buf type
-typedef int jmp_buf[6];
-
-struct timeval {
-    long tv_sec;
-    long tv_usec;
-};
-
-struct timezone {
-    int tz_minuteswest;
-    int tz_dsttime;
-};
-
-// define off_t type
-#define off_t long
-
-// define size_t type
-#define ssize_t long
-
 // bordel.c
-
-void serial_debug(char *fmt, ...);
-
 long double strtold(const char *theString, char **end);
 
 int isalnum(int c);

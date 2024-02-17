@@ -1,5 +1,6 @@
 #include <syscall.h>
 #include <string.h>
+#include <profan.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -13,106 +14,6 @@
 int unlink(const char *pathname) {
     serial_debug("unlink: %s\n", (char *) pathname);
     return 0;
-}
-
-int str_len(char s[]) {
-    int i = 0;
-    while (s[i] != '\0') i++;
-    return i;
-}
-
-void str_reverse(char s[]) {
-    int i = 0;
-    int j = str_len(s) - 1;
-    char tmp;
-    while (i < j) {
-        tmp = s[i];
-        s[i] = s[j];
-        s[j] = tmp;
-        i++;
-        j--;
-    }
-}
-
-void int2str(int n, char s[]) {
-    int i, sign;
-    if ((sign = n) < 0) n = -n;
-    i = 0;
-    do {
-        s[i++] = n % 10 + '0';
-    } while ((n /= 10) > 0);
-
-    if (sign < 0) s[i++] = '-';
-    s[i] = '\0';
-
-    str_reverse(s);
-}
-
-void hex2str(uint32_t n, char s[]) {
-    int i = 0;
-    int tmp;
-    char hex[] = "0123456789abcdef";
-    do {
-        tmp = n % 16;
-        s[i++] = hex[tmp];
-    } while ((n /= 16) > 0);
-    s[i] = '\0';
-    str_reverse(s);
-}
-
-void serial_debug(char *fmt, ...) {
-    char *args = (char *) &fmt;
-    args += 4;
-    int i = 0;
-    char *char_buffer = malloc(0x1000);
-    int buffer_i = 1;
-    char_buffer[0] = ' ';
-    while (fmt[i] != '\0') {
-        if (fmt[i] == '%') {
-            i++;
-            if (fmt[i] == 's') {
-                char *s = *((char **) args);
-                args += 4;
-                for (int j = 0; s[j] != '\0'; j++) {
-                    char_buffer[buffer_i] = s[j];
-                    buffer_i++;
-                }                
-            } else if (fmt[i] == 'c') {
-                char c = *((char *) args);
-                args += 4;
-                char_buffer[buffer_i] = c;
-                buffer_i++;
-            } else if (fmt[i] == 'd') {
-                int n = *((int *) args);
-                args += 4;
-                char s[20];
-                int2str(n, s);
-                for (int j = 0; s[j] != '\0'; j++) {
-                    char_buffer[buffer_i] = s[j];
-                    buffer_i++;
-                }
-            } else if (fmt[i] == 'x') {
-                uint32_t n = *((int *) args);
-                args += 4;
-                char s[20];
-                hex2str(n, s);
-                for (int j = 0; s[j] != '\0'; j++) {
-                    char_buffer[buffer_i] = s[j];
-                    buffer_i++;
-                }
-            } else if (fmt[i] == '%') {
-                char_buffer[buffer_i] = '%';
-                buffer_i++;
-            }
-        } else {
-            char_buffer[buffer_i] = fmt[i];
-            buffer_i++;
-        }
-        i++;
-    }
-    char_buffer[buffer_i] = '\0';
-    c_serial_print(SERIAL_PORT_A, char_buffer);
-    free(char_buffer);
 }
 
 int isalnum(int c) {
