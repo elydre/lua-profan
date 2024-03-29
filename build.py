@@ -5,8 +5,8 @@ LD      = "ld"
 
 OUTPUT  = "lua"
 
-CFLAGS  = "-g -ffreestanding -fno-exceptions -m32 -I ./profan_zlib -I ./local_lib -Wno-incompatible-pointer-types -Wno-overflow"
-LDFLAGS = "-T link.ld -z max-page-size=0x1000"
+CFLAGS  = "-ffreestanding -fno-exceptions -m32 -I ./profan_zlib -I ./local_lib -Wno-overflow"
+LDFLAGS = "-nostdlib -L../profanOS/out/zlibs -T link.ld -z max-page-size=0x1000 -lc -lm"
 
 OBJDIR  = "build"
 SRCDIR  = "src"
@@ -27,8 +27,7 @@ def compile_file(src, dir = SRCDIR):
     return obj
 
 def link_files(entry, objs, output = OUTPUT):
-    execute_command(f"{LD} {LDFLAGS} -o {output}.pe {entry} {' '.join(objs)} ")
-    execute_command(f"objcopy -O binary {output}.pe {output}.bin")
+    execute_command(f"{LD} {LDFLAGS} -o {output}.elf {entry} {' '.join(objs)} ")
 
 def main():
     execute_command(f"mkdir -p {OBJDIR}")
@@ -37,8 +36,6 @@ def main():
 
     entry = compile_file("entry.c", ".")
     link_files(entry, objs)
-
-    execute_command("rm *.pe")
 
 if __name__ == "__main__":
     main()

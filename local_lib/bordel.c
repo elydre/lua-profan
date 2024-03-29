@@ -11,11 +11,6 @@
 #endif
 
 
-int unlink(const char *pathname) {
-    serial_debug("unlink: %s\n", (char *) pathname);
-    return 0;
-}
-
 int isalnum(int c) {
     return isalpha(c) || isdigit(c);
 }
