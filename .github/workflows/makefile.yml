@@ -35,4 +35,4 @@ jobs:
         automatic_release_tag: latest
         repo_token: "${{ secrets.GIT_TOKEN }}"
         files: |
-          lua.bin
+          lua.elf
