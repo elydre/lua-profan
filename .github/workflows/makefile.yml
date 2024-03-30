@@ -34,5 +34,6 @@ jobs:
         title: "lua for profanOS"
         automatic_release_tag: latest
         repo_token: "${{ secrets.GIT_TOKEN }}"
+        prerelease: false
         files: |
           lua.elf
