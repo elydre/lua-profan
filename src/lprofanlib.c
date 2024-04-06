@@ -9,7 +9,7 @@
 #include "lprefix.h"
 
 
-#include <syscall.h>
+#include <profan/syscall.h>
 #include <stdlib.h>
 
 #include "lua.h"
