@@ -37,38 +37,65 @@ static int pf_call_c (lua_State *L) {
   int function_pointer = luaL_checkinteger(L, 1);
   int arg_count = lua_gettop(L) - 1;
   if (arg_count % 2 != 0) {
-    luaL_error(L, "invalid argument count");
+    luaL_error(L, "Usage: function, arg1_size, arg1, arg2_size, arg2, ...");
     return 0;
   }
-  int *args_sizes = malloc(arg_count * sizeof(int) / 2);
-  int *args = malloc(arg_count * sizeof(int) / 2);
-  int i;
-  for (i = 0; i < arg_count; i += 2) {
-    args_sizes[i / 2] = luaL_checkinteger(L, i + 2);
-    args[i / 2] = luaL_checkinteger(L, i + 3);
+
+  if (arg_count > 12) {
+    luaL_error(L, "too many arguments, max is 6");
+    return 0;
   }
 
-  // push arguments in reverse order
-  for (i = arg_count / 2 - 1; i >= 0; i--) {
-    if (args_sizes[i] == 4) {
-      asm volatile("pushl %0" : : "r"(args[i]));
-    } else if (args_sizes[i] == 2) {
-      // move the 2 bytes to the lower 2 bytes of a 4 byte integer
-      asm volatile("pushl %0" : : "r"(args[i] << 16));
-    } else if (args_sizes[i] == 1) {
-      // move the byte to the lower byte of a 4 byte integer
-      asm volatile("pushl %0" : : "r"(args[i] << 24));
+  uint32_t *args = calloc(6, sizeof(int));
+  int i, size;
+  for (i = 0; i < arg_count; i += 2) {
+    size = luaL_checkinteger(L, i + 2);
+    if (size == 1) {
+      args[i / 2] = luaL_checkinteger(L, i + 3) << 24;
+    } else if (size == 2) {
+      args[i / 2] = luaL_checkinteger(L, i + 3) << 16;
+    } else if (size == 4) {
+      args[i / 2] = luaL_checkinteger(L, i + 3);
     } else {
+      free(args);
       luaL_error(L, "invalid argument size");
       return 0;
     }
   }
 
-  // call the function
-  int return_value;
-  asm volatile("call *%1" : "=a"(return_value) : "r"(function_pointer));
+  int return_value = 0;
 
-  free(args_sizes);
+  switch (arg_count) {
+    case 0:
+      return_value = ((uint32_t (*)())
+            function_pointer)();
+      break;
+    case 2:
+      return_value = ((uint32_t (*)(uint32_t))
+            function_pointer)(args[0]);
+      break;
+    case 4:
+      return_value = ((uint32_t (*)(uint32_t, uint32_t))
+            function_pointer)(args[0], args[1]);
+      break;
+    case 6:
+      return_value = ((uint32_t (*)(uint32_t, uint32_t, uint32_t))
+            function_pointer)(args[0], args[1], args[2]);
+      break;
+    case 8:
+      return_value = ((uint32_t (*)(uint32_t, uint32_t, uint32_t, uint32_t))
+            function_pointer)(args[0], args[1], args[2], args[3]);
+      break;
+    case 10:
+      return_value = ((uint32_t (*)(uint32_t, uint32_t, uint32_t, uint32_t, uint32_t))
+            function_pointer)(args[0], args[1], args[2], args[3], args[4]);
+      break;
+    case 12:
+      return_value = ((uint32_t (*)(uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t))
+            function_pointer)(args[0], args[1], args[2], args[3], args[4], args[5]);
+      break;
+  }
+
   free(args);
 
   lua_pushinteger(L, return_value);
