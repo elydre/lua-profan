@@ -1,3 +1,14 @@
+/*****************************************************************************\
+|   === stdio.h : 2024 ===                                                    |
+|                                                                             |
+|    Implementation of the stdio.h header file from libC           .pi0iq.    |
+|                                                                 d"  . `'b   |
+|    This file is part of profanOS and is released under          q. /|\  "   |
+|    the terms of the GNU General Public License                   `// \\     |
+|                                                                  //   \\    |
+|   === elydre : https://github.com/elydre/profanOS ===         #######  \\   |
+\*****************************************************************************/
+
 #ifndef STDIO_H
 #define STDIO_H
 
@@ -57,6 +68,8 @@ int getchar(void);
 char *gets_s(char *str, rsize_t n);
 int putchar(int ch);
 int puts(const char *str);
+ssize_t getdelim(char **lineptr, size_t *n, int delim, FILE *stream);
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 int ungetc(int ch, FILE *stream);
 int scanf(const char *format, ...);
 int fscanf(FILE *stream, const char *format, ...);
