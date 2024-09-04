@@ -22,12 +22,17 @@ static int pf_setpixel (lua_State *L) {
   int x = luaL_checkinteger(L, 1);
   int y = luaL_checkinteger(L, 2);
   int color = luaL_checkinteger(L, 3);
-  c_vesa_set_pixel(x, y, color);
+  
+  uint32_t *fb = syscall_vesa_fb();
+  int pitch = syscall_vesa_pitch();
+  
+  fb[y * pitch + x] = color;
+
   return 1;
 }
 
 static int pf_ticks (lua_State *L) {
-  lua_pushinteger(L, c_timer_get_ms());
+  lua_pushinteger(L, syscall_timer_get_ms());
   return 1;
 }
 
