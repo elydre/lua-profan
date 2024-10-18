@@ -1,11 +1,11 @@
 /* Tell the linker that we want an ELF32 output file */
-OUTPUT_FORMAT(elf32-i386)
-OUTPUT_ARCH(i386)
+OUTPUT_FORMAT (elf32-i386)
+OUTPUT_ARCH (i386)
 
 /* Linker script for an application for the OS. */
 
 /* Entry point for application */
-ENTRY (entry)
+ENTRY (_start)
 
 SECTIONS {
     . = 0xC0000000;
