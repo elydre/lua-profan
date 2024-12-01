@@ -8,9 +8,9 @@
 
 #include "lprefix.h"
 
-
 #include <profan/syscall.h>
 #include <stdlib.h>
+#include <dlfcn.h>
 
 #include "lua.h"
 
@@ -36,10 +36,17 @@ static int pf_ticks (lua_State *L) {
   return 1;
 }
 
-static int pf_call_c (lua_State *L) {
-  // lua: profan.call_c(function_pointer, arg1_size, arg1, arg2_size, arg2, ...)
+static int pf_cfunc (lua_State *L) {
+  // lua: profan.cfunc(function_name, arg1_size, arg1, arg2_size, arg2, ...)
   // all arguments are integers
-  int function_pointer = luaL_checkinteger(L, 1);
+  
+  void *function_pointer = dlsym(NULL, luaL_checkstring(L, 1));
+
+  if (!function_pointer) {
+    luaL_error(L, "dlsym failed");
+    return 0;
+  }
+
   int arg_count = lua_gettop(L) - 1;
   if (arg_count % 2 != 0) {
     luaL_error(L, "Usage: function, arg1_size, arg1, arg2_size, arg2, ...");
@@ -51,8 +58,9 @@ static int pf_call_c (lua_State *L) {
     return 0;
   }
 
-  uint32_t *args = calloc(6, sizeof(int));
+  uint32_t args[6];
   int i, size;
+
   for (i = 0; i < arg_count; i += 2) {
     size = luaL_checkinteger(L, i + 2);
     if (size == 1) {
@@ -62,7 +70,6 @@ static int pf_call_c (lua_State *L) {
     } else if (size == 4) {
       args[i / 2] = luaL_checkinteger(L, i + 3);
     } else {
-      free(args);
       luaL_error(L, "invalid argument size");
       return 0;
     }
@@ -100,8 +107,6 @@ static int pf_call_c (lua_State *L) {
             function_pointer)(args[0], args[1], args[2], args[3], args[4], args[5]);
       break;
   }
-
-  free(args);
 
   lua_pushinteger(L, return_value);
   return 1;
@@ -182,7 +187,7 @@ static int pf_pout (lua_State *L) {
 static const luaL_Reg profanlib[] = {
   {"setpixel",  pf_setpixel},
   {"ticks",     pf_ticks},
-  {"call_c",    pf_call_c},
+  {"cfunc",     pf_cfunc},
   {"memval",    pf_memval},
   {"memset",    pf_memset},
   {"pin",       pf_pin},
