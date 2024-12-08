@@ -1,13 +1,5 @@
-#include <profan.h>
 #include <string.h>
 #include <stdio.h>
-
-#include <bordel.h>
-
-long double strtold(const char *theString, char **end) {
-    puts("strtold is not implemented yet...\n");
-    return 0;
-}
 
 // localeconv
 struct lconv *localeconv(void) {

@@ -31,6 +31,9 @@ struct lconv {
 // localeconv definition
 struct lconv *localeconv(void);
 
+int strcoll(const char *s1, const char *s2);
+char *setlocale(int category, const char *locale);
+
 #define LC_ALL 0
 #define LC_COLLATE 1
 #define LC_CTYPE 2

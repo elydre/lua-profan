@@ -1,7 +1,7 @@
 #ifndef SIGNAL_H
 #define SIGNAL_H
 
-#include <bordel.h>
+void (*signal(int sig, void (*func)(int)))(int);
 
 // sig_atomic_t definition
 typedef int sig_atomic_t;

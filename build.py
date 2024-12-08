@@ -12,7 +12,7 @@ LD      = "ld"
 
 OUTPUT  = "lua"
 
-CFLAGS  = "-ffreestanding -fno-exceptions -m32 -I ./profan_zlib -I ./local_lib -Wno-overflow -nostdinc -O3 -fno-stack-protector -fno-omit-frame-pointer"
+CFLAGS  = f"-ffreestanding -fno-exceptions -m32 -I ./local_lib -Wno-overflow -nostdinc -O3 -fno-stack-protector -fno-omit-frame-pointer -I {profan_path}/include/zlibs -I {profan_path}/include/addons"
 LDFLAGS = f"-nostdlib -L {profan_path}/out/zlibs -T link.ld -lc -lm"
 
 OBJDIR  = "build"
